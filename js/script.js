@@ -1,137 +1,76 @@
-(function($){
-  // Search
-  var $searchWrap = $('#search-form-wrap'),
-    isSearchAnim = false,
-    searchAnimDuration = 200;
+/*
+Theme: Flatfy Theme
+Author: Andrea Galanti
+Bootstrap Version 
+Build: 1.0
+http://www.andreagalanti.it
+*/
 
-  var startSearchAnim = function(){
-    isSearchAnim = true;
-  };
+$(window).load(function() { 
+	//Preloader 
+	$('#status').delay(300).fadeOut(); 
+	$('#preloader').delay(300).fadeOut('slow');
+	$('body').delay(550).css({'overflow':'visible'});
+})
 
-  var stopSearchAnim = function(callback){
-    setTimeout(function(){
-      isSearchAnim = false;
-      callback && callback();
-    }, searchAnimDuration);
-  };
+$(document).ready(function() {
+		//animated logo
+		$(".navbar-brand").hover(function () {
+			$(this).toggleClass("animated shake");
+		});
+		
+		//animated scroll_arrow
+		$(".img_scroll").hover(function () {
+			$(this).toggleClass("animated infinite bounce");
+		});
+		
+		//Wow Animation DISABLE FOR ANIMATION MOBILE/TABLET
+		wow = new WOW(
+		{
+			mobile: false
+		});
+		wow.init();
+		
+		//MagnificPopup
+		$('.image-link').magnificPopup({type:'image'});
 
-  $('#nav-search-btn').on('click', function(){
-    if (isSearchAnim) return;
 
-    startSearchAnim();
-    $searchWrap.addClass('on');
-    stopSearchAnim(function(){
-      $('.search-form-input').focus();
-    });
-  });
+		// OwlCarousel N1
+		$("#owl-demo").owlCarousel({
+			autoPlay: 3000,
+			items : 3,
+			itemsDesktop : [1199,3],
+			itemsDesktopSmall : [979,3]
+		});
 
-  $('.search-form-input').on('blur', function(){
-    startSearchAnim();
-    $searchWrap.removeClass('on');
-    stopSearchAnim();
-  });
+		// OwlCarousel N2
+		$("#owl-demo-1").owlCarousel({
+			  navigation : false, // Show next and prev buttons
+			  slideSpeed : 300,
+			  paginationSpeed : 400,
+			  singleItem:true
+		});
 
-  // Share
-  $('body').on('click', function(){
-    $('.article-share-box.on').removeClass('on');
-  }).on('click', '.article-share-link', function(e){
-    e.stopPropagation();
+		//SmothScroll
+		$('a[href*=#]').click(function() {
+			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+			&& location.hostname == this.hostname) {
+					var $target = $(this.hash);
+					$target = $target.length && $target || $('[name=' + this.hash.slice(1) +']');
+					if ($target.length) {
+							var targetOffset = $target.offset().top;
+							$('html,body').animate({scrollTop: targetOffset}, 600);
+							return false;
+					}
+			}
+		});
+		
+		//Subscribe
+		new UIMorphingButton( document.querySelector( '.morph-button' ) );
+		// for demo purposes only
+		[].slice.call( document.querySelectorAll( 'form button' ) ).forEach( function( bttn ) { 
+			bttn.addEventListener( 'click', function( ev ) { ev.preventDefault(); } );
+		} );
 
-    var $this = $(this),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      id = 'article-share-box-' + $this.attr('data-id'),
-      offset = $this.offset();
+});
 
-    if ($('#' + id).length){
-      var box = $('#' + id);
-
-      if (box.hasClass('on')){
-        box.removeClass('on');
-        return;
-      }
-    } else {
-      var html = [
-        '<div id="' + id + '" class="article-share-box">',
-          '<input class="article-share-input" value="' + url + '">',
-          '<div class="article-share-links">',
-            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
-            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
-          '</div>',
-        '</div>'
-      ].join('');
-
-      var box = $(html);
-
-      $('body').append(box);
-    }
-
-    $('.article-share-box.on').hide();
-
-    box.css({
-      top: offset.top + 25,
-      left: offset.left
-    }).addClass('on');
-  }).on('click', '.article-share-box', function(e){
-    e.stopPropagation();
-  }).on('click', '.article-share-box-input', function(){
-    $(this).select();
-  }).on('click', '.article-share-box-link', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-
-    window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-  });
-
-  // Caption
-  $('.article-entry').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-
-      var alt = this.alt;
-
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-
-  if ($.fancybox){
-    $('.fancybox').fancybox();
-  }
-
-  // Mobile nav
-  var $container = $('#container'),
-    isMobileNavAnim = false,
-    mobileNavAnimDuration = 200;
-
-  var startMobileNavAnim = function(){
-    isMobileNavAnim = true;
-  };
-
-  var stopMobileNavAnim = function(){
-    setTimeout(function(){
-      isMobileNavAnim = false;
-    }, mobileNavAnimDuration);
-  }
-
-  $('#main-nav-toggle').on('click', function(){
-    if (isMobileNavAnim) return;
-
-    startMobileNavAnim();
-    $container.toggleClass('mobile-nav-on');
-    stopMobileNavAnim();
-  });
-
-  $('#wrap').on('click', function(){
-    if (isMobileNavAnim || !$container.hasClass('mobile-nav-on')) return;
-
-    $container.removeClass('mobile-nav-on');
-  });
-})(jQuery);
