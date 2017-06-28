@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src='//alinw.alicdn.com/platform/c/jquery/1.11.3/dist/jquery.min.js'></script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智障啊</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<embed id="tyl" src="http://cloud.video.taobao.com/play/u/849441921/e/1/t/3/p/2/50010172675.swf" quality="high" width="100%" height="100%" align="middle" allowScriptAccess="never" allowFullScreen="true" type="application/x-shockwave-flash"></embed>
-<script>
-  $('#tyl').height($(window).height())
-</script>
+
+<div id="sections-wrapper">
+	<section class="show" data-img="img/IMG_2031.JPG"></section>
+	<section class="hide-bottom" data-img="img/IMG_2246.JPG"></section>
+	<section class="hide-bottom" data-img="img/IMG_2314.JPG"></section>
+	<section class="hide-bottom" data-img="img/IMG_2322.JPG"></section>
+</div>
+<!-- sections control -->
+<div class="sections-control">
+	<div class="section-thumbnail active"></div>
+	<div class="section-thumbnail"></div>
+	<div class="section-thumbnail"></div>
+	<div class="section-thumbnail"></div>
+</div>
+<script src="js/anime.min.js"></script>
+<script src="js/interaction.js"></script>
 </body>
 </html>
