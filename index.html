@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>唐永乐是智障</title>
+    <title>沫沫是美女</title>
 </head>
 <style>
     .div{
@@ -60,7 +60,7 @@
         <div class="title">
             <div style="float: left">券哦&nbsp;</div>
             <div style="float: left;width: 70%">
-                <textarea style="width: 100%"  class="c_input" v-model="t_ticket" placeholder="券链接"></textarea>
+                <textarea style="width: 100%;"  class="c_input" v-model="t_ticket" placeholder="券链接"></textarea>
             </div>
         </div>
         <div style="clear:both"></div>
@@ -82,13 +82,20 @@
             券后 <input v-model="m_tickets" class="input" placeholder="券后价格">
         </div>
         <div class="title">
-            券哦 <input v-model="m_ticket" class="input" placeholder="券">
+            <div style="float: left">券哦&nbsp;</div>
+            <div style="float: left;width: 70%">
+                <textarea style="width: 100%;"  class="c_input" v-model="m_ticket" placeholder="券链接"></textarea>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div class="title">
+            拍哦 <input v-model="m_id" class="input" placeholder="拍链接">
         </div>
         <div class="title">
-            拍哦 <input v-model="m_id" class="input" placeholder="id">
+            https://detail.tmall.com/item.htm?id=
         </div>
         <div class="textarea">
-            <textarea id="m_value" class="textarea">{{m_title}}\r\n券后：{{m_tickets}} \r\n券：{{m_ticket}} \r\n拍：https://detail.tmall.com/item.htm?id={{m_id}} </textarea>
+            <textarea id="m_value" class="textarea">{{m_title}}\r\n券后：{{m_tickets}} \r\n券：{{m_ticket}} \r\n拍：{{m_id}} </textarea>
         </div>
         <button class="button" onClick="copy_t('m_value')">一键复制</button>
     </div>
