@@ -93,7 +93,7 @@
                 <div class="list_time">复制时间&nbsp;&nbsp;</div>
                 <div style="clear:both"></div>
             </div>
-            <div v-for="item in list" class="list_div">
+            <div v-for="item in list" class="list_div" v-on:click="det($index)">
                 <div class="list_title">&nbsp;&nbsp;{{item.t_title||'没有标题'}}</div>
                 <div class="list_time">{{item.date}} {{item.time}}&nbsp;&nbsp;</div>
                 <div style="clear:both"></div>
@@ -139,6 +139,9 @@
         del:function () {
           localStorage.clear()
           this.list = []
+        },
+        det:function (e) {
+//          layer.msg('标题'+this.list[e].t_title,{time:1000});
         }
       }
     })
