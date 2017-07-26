@@ -34,6 +34,9 @@
     .button{
         border: 1px solid #bfcbd9;border-radius: 4px;color: #fff;background-color: green;float: right;margin-right: 15%;
     }
+    .c_input{
+        text-align: left;line-height: 24px;border: 1px solid #bfcbd9;border-radius: 4px;padding-left: 5px;
+    }
 </style>
 <body>
 <script>
@@ -49,38 +52,43 @@
     <div class="div">
         <div class="name">Taobao</div>
         <div class="title">
-            标题 ：<input v-model="t_title" class="input" placeholder="请输入标题">
+            标题 <input v-model="t_title" class="input" placeholder="请输入标题">
         </div>
         <div class="quan">
-            券后 ：<input v-model="t_tickets" class="input" placeholder="券后价格">
+            券后 <input v-model="t_tickets" class="input" placeholder="券后价格">
         </div>
         <div class="title">
-            券哦 ：<input v-model="t_ticket" class="input" placeholder="券">
+            <div style="float: left">券哦&nbsp;</div>
+            <div style="float: left;width: 70%">
+                <textarea style="width: 100%"  class="c_input" v-model="t_ticket" placeholder="券链接"></textarea>
+            </div>
         </div>
-        <div class="quan">
-            拍哦 ：https://item.taobao.com/item.htm?id=<input v-model="t_id" class="input" placeholder="id">
+        <div style="clear:both"></div>
+        <div class="title">
+            拍哦 <input v-model="t_id" class="input" placeholder="拍链接">
         </div>
+        <div class="title">https://item.taobao.com/item.htm?id=</div>
         <div class="textarea">
-            <textarea id="t_value" class="textarea">{{t_title}}\r\n券后：{{t_tickets}} \r\n券：{{t_ticket}} \r\n拍：https://item.taobao.com/item.htm?id={{t_id}} </textarea>
+            <textarea id="t_value" class="textarea">{{t_title}}\r\n券后：{{t_tickets}} \r\n券：{{t_ticket}} \r\n拍：{{t_id}} </textarea>
         </div>
         <button class="button" onClick="copy_t('t_value')">一键复制</button>
     </div>
     <div class="div">
         <div class="name">TMALL</div>
         <div class="title">
-            标题 ：<input v-model="m_title" class="input" placeholder="请输入标题">
+            标题 <input v-model="m_title" class="input" placeholder="请输入标题">
         </div>
         <div class="quan">
-            券后 ：<input v-model="m_tickets" class="input" placeholder="券后价格">
+            券后 <input v-model="m_tickets" class="input" placeholder="券后价格">
         </div>
         <div class="title">
-            券哦 ：<input v-model="m_ticket" class="input" placeholder="券">
+            券哦 <input v-model="m_ticket" class="input" placeholder="券">
         </div>
-        <div class="quan">
-            拍哦 ：https://detail.tmall.com/item.htm?id=<input v-model="m_id" class="input" placeholder="id">
+        <div class="title">
+            拍哦 <input v-model="m_id" class="input" placeholder="id">
         </div>
         <div class="textarea">
-            <textarea id="m_value" class="textarea">{{m_title}}\r\n券后：{{m_tickets}} \r\n券：{{m_ticket}} \r\n拍：https://item.taobao.com/item.htm?id={{m_id}} </textarea>
+            <textarea id="m_value" class="textarea">{{m_title}}\r\n券后：{{m_tickets}} \r\n券：{{m_ticket}} \r\n拍：https://detail.tmall.com/item.htm?id={{m_id}} </textarea>
         </div>
         <button class="button" onClick="copy_t('m_value')">一键复制</button>
     </div>
