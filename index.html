@@ -40,21 +40,28 @@
     .c_input{
         text-align: left;line-height: 24px;border: 1px solid #bfcbd9;border-radius: 4px;padding-left: 5px;
     }
+    .list{
+        border: solid 1px #eee;width: 95%;margin-top: 3%;
+    }
+    .list_div {
+        line-height: 30px;border-bottom: solid 1px #eee; width: 90%;margin-left: 5%;
+    }
+    .list_title{
+        width: 60%;float: left;text-align: left;cursor: pointer;
+    }
+    .list_time{
+        width: 40%;float: left;text-align: right;
+    }
+    .del{
+        position: absolute;
+        top:6%;right: 3%;font-size: 10px;color: red;cursor: pointer;
+    }
 </style>
 <body>
-<script>
-  function copy_t(e)
-  {
-    var Url2=document.getElementById(e);
-    Url2.select(); // 选择对象
-    document.execCommand("Copy"); // 执行浏览器复制命令
-    layer.msg('已复制好，可贴粘',{time:1000});
-  }
-</script>
 <div id="app">
     <!--background-image:url()-->
     <div class="div">
-        <div class="name">Taobao</div>
+        <div class="name">Taobao / TMALL</div>
         <div class="title">
             标题:<input v-model="t_title" class="input" placeholder="请输入标题">
         </div>
@@ -72,37 +79,28 @@
             拍哦:<input v-model="t_id" class="input" placeholder="拍链接">
         </div>
         <div class="title">https://item.taobao.com/item.htm?id=</div>
+        <div class="title">https://detail.tmall.com/item.htm?id=</div>
         <div class="textarea">
             <textarea id="t_value" class="textarea">{{t_title}}\r\n券后{{t_tickets}} \r\n券:{{t_ticket}} \r\n拍:{{t_id}} </textarea>
         </div>
-        <button class="button" onClick="copy_t('t_value')">一键复制</button>
+        <button class="button" v-on:click="copy_t()">一键复制</button>
     </div>
-    <div class="div">
-        <div class="name">TMALL</div>
-        <div class="title">
-            标题:<input v-model="m_title" class="input" placeholder="请输入标题">
-        </div>
-        <div class="quan">
-            券后 <input v-model="m_tickets" class="input" placeholder="券后价格">
-        </div>
-        <div class="title">
-            <div style="float: left">券哦:</div>
-            <div style="float: left;width: 70%">
-                <textarea style="width: 100%;"  class="c_input" v-model="m_ticket" placeholder="券链接"></textarea>
+    <div class="div" v-if="list.length>0">
+        <div class="name">历史复制记录</div>
+        <div class="list">
+            <div class="list_div">
+                <div class="list_title">&nbsp;&nbsp;标题</div>
+                <div class="list_time">复制时间&nbsp;&nbsp;</div>
+                <div style="clear:both"></div>
+            </div>
+            <div v-for="item in list" class="list_div">
+                <div class="list_title">&nbsp;&nbsp;{{item.t_title||'没有标题'}}</div>
+                <div class="list_time">{{item.date}} {{item.time}}&nbsp;&nbsp;</div>
+                <div style="clear:both"></div>
             </div>
         </div>
-        <div style="clear:both"></div>
-        <div class="title">
-            拍哦:<input v-model="m_id" class="input" placeholder="拍链接">
-        </div>
-        <div class="title">
-            https://detail.tmall.com/item.htm?id=
-        </div>
-        <div class="textarea">
-            <textarea id="m_value" class="textarea">{{m_title}}\r\n券后{{m_tickets}} \r\n券:{{m_ticket}} \r\n拍:{{m_id}} </textarea>
-        </div>
-        <button class="button" onClick="copy_t('m_value')">一键复制</button>
     </div>
+    <div v-if="list.length>0" class="del" v-on:click="del()">清除历史复制记录</div>
 </div>
 </body>
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -117,13 +115,35 @@
         t_tickets: '',
         t_ticket: '',
         t_id: '',
-        m_title: '',
-        m_tickets: '',
-        m_ticket: '',
-        m_id: ''
+        list: localStorage.list ? JSON.parse(localStorage.list) : []
+      },
+      methods: {
+        copy_t:function () {
+          var Url2=document.getElementById("t_value");
+          Url2.select(); // 选择对象
+          document.execCommand("Copy"); // 执行浏览器复制命令
+          layer.msg('已复制好，可贴粘',{time:1000});
+          var new_list = {
+            t_title: this.t_title,
+            t_tickets: this.t_tickets,
+            t_ticket: this.t_ticket,
+            t_id: this.t_id,
+            date: new Date().getFullYear()+'-'+ (new Date().getMonth()+1) +'-' + new Date().getDate(),
+            time: new Date().getHours() + ':' + new Date().getMinutes() + ":" + new Date().getSeconds()
+          }
+          var list = localStorage.list ? JSON.parse(localStorage.list) : []
+          list.push(new_list)
+          this.list.push(new_list)
+          localStorage.list = JSON.stringify(list)
+        },
+        del:function () {
+          localStorage.clear()
+          this.list = []
+        }
       }
     })
     $('.div').css('height',$(window).height())
+    $('.list').css('height',$(window).height()*.9)
   })
 </script>
 </html>
