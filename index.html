@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>唐永乐是智障</title>
+</head>
+<style>
+    .div{
+        width: 50%;float: left;text-align: center;margin-top: 3%;
+    }
+    .input{
+        line-height: 24px;border: 1px solid #bfcbd9;border-radius: 4px;padding-left: 5px;
+    }
+    .name{
+        font-family: inherit;
+        font-weight: 500;
+        color: inherit;
+    }
+    .title {
+        text-align: left;margin-left: 10%;margin-top: 3%;
+    }
+    .title input{
+        width: 70%;
+    }
+    .quan {
+        text-align: left;margin-left: 10%;margin-top: 3%;
+    }
+    .textarea{
+        text-align: left;margin: 5% 0 0 5%
+    }
+    .textarea textarea{
+        text-align: left;line-height: 24px;border: 1px solid #bfcbd9;border-radius: 4px;width: 75%;height: 150px;padding-left: 3%;
+    }
+    .button{
+        border: 1px solid #bfcbd9;border-radius: 4px;color: #fff;background-color: green;float: right;margin-right: 15%;
+    }
+</style>
+<body>
+<script>
+  function copy_t(e)
+  {
+    var Url2=document.getElementById(e);
+    Url2.select(); // 选择对象
+    document.execCommand("Copy"); // 执行浏览器复制命令
+    alert("已复制好，可贴粘。");
+  }
+</script>
+<div id="app">
+    <div class="div">
+        <div class="name">Taobao</div>
+        <div class="title">
+            标题 ：<input v-model="t_title" class="input" placeholder="请输入标题">
+        </div>
+        <div class="quan">
+            券后 ：<input v-model="t_tickets" class="input" placeholder="券后价格">
+        </div>
+        <div class="title">
+            券哦 ：<input v-model="t_ticket" class="input" placeholder="券">
+        </div>
+        <div class="quan">
+            拍哦 ：https://item.taobao.com/item.htm?id=<input v-model="t_id" class="input" placeholder="id">
+        </div>
+        <div class="textarea">
+            <textarea id="t_value" class="textarea">{{t_title}}\r\n券后：{{t_tickets}} \r\n券：{{t_ticket}} \r\n拍：https://item.taobao.com/item.htm?id={{t_id}} </textarea>
+        </div>
+        <button class="button" onClick="copy_t('t_value')">一键复制</button>
+    </div>
+    <div class="div">
+        <div class="name">TMALL</div>
+        <div class="title">
+            标题 ：<input v-model="m_title" class="input" placeholder="请输入标题">
+        </div>
+        <div class="quan">
+            券后 ：<input v-model="m_tickets" class="input" placeholder="券后价格">
+        </div>
+        <div class="title">
+            券哦 ：<input v-model="m_ticket" class="input" placeholder="券">
+        </div>
+        <div class="quan">
+            拍哦 ：https://detail.tmall.com/item.htm?id=<input v-model="m_id" class="input" placeholder="id">
+        </div>
+        <div class="textarea">
+            <textarea id="m_value" class="textarea">{{m_title}}\r\n券后：{{m_tickets}} \r\n券：{{m_ticket}} \r\n拍：https://item.taobao.com/item.htm?id={{m_id}} </textarea>
+        </div>
+        <button class="button" onClick="copy_t('m_value')">一键复制</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/vue.min.js"></script>
+<script>
+  $(document).ready(function() {
+    var tangyongle= new Vue({
+      el:'#app',
+      data: {
+        t_title: '',
+        t_tickets: '',
+        t_ticket: '',
+        t_id: '',
+        m_title: '',
+        m_tickets: '',
+        m_ticket: '',
+        m_id: ''
+      }
+    })
+  })
+</script>
+</html>
