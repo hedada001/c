@@ -35,7 +35,10 @@
         text-align: left;line-height: 24px;border: 1px solid #bfcbd9;border-radius: 4px;width: 75%;height: 150px;padding-left: 3%;
     }
     .button{
-        border: 1px solid #bfcbd9;border-radius: 4px;color: #fff;background-color: green;float: right;margin-right: 15%;
+        border: 1px solid green;border-radius: 4px;color: #fff;background-color: green;float: right;margin-right: 15%;
+    }
+    .del_button{
+        border: 1px solid red;border-radius: 4px;color: #fff;background-color: red;float: right;margin-right: 3%;
     }
     .c_input{
         text-align: left;line-height: 24px;border: 1px solid #bfcbd9;border-radius: 4px;padding-left: 5px;
@@ -84,6 +87,7 @@
             <textarea id="t_value" class="textarea">{{t_title}}\r\n券后{{t_tickets}} \r\n券:{{t_ticket}} \r\n拍:{{t_id}} </textarea>
         </div>
         <button class="button" v-on:click="copy_t()">一键复制</button>
+        <button class="del_button" v-on:click="del_val()">一键清除</button>
     </div>
     <div class="div" v-if="list.length>0">
         <div class="name">历史复制记录</div>
@@ -141,8 +145,19 @@
           this.list = []
           layer.msg('清除成功',{time:1000});
         },
+        del_val:function () {
+          this.t_title = ''
+          this.t_tickets = ''
+          this.t_ticket = ''
+          this.t_id = ''
+          layer.msg('清除成功',{time:1000});
+        },
         det:function (e) {
-//          layer.msg('标题'+this.list[e].t_title,{time:1000});
+          console.log(this.list[e])
+          this.t_title = this.list[e].t_title
+          this.t_tickets = this.list[e].t_tickets
+          this.t_ticket = this.list[e].t_ticket
+          this.t_id = this.list[e].t_id
         }
       }
     })
