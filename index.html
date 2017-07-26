@@ -132,8 +132,8 @@
             time: new Date().getHours() + ':' + new Date().getMinutes() + ":" + new Date().getSeconds()
           }
           var list = localStorage.list ? JSON.parse(localStorage.list) : []
-          list.push(new_list)
-          this.list.push(new_list)
+          list.unshift(new_list)
+          this.list.unshift(new_list)
           localStorage.list = JSON.stringify(list)
         },
         del:function () {
