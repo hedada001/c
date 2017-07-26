@@ -139,6 +139,7 @@
         del:function () {
           localStorage.clear()
           this.list = []
+          layer.msg('清除成功',{time:1000});
         },
         det:function (e) {
 //          layer.msg('标题'+this.list[e].t_title,{time:1000});
