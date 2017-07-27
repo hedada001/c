@@ -112,7 +112,7 @@
         </div>
     </div>
     <div v-if="list.length>0" class="del" v-on:click="del()">清除历史复制记录</div>
-    <div v-if="list.length>0" class="load"><a>下载复制记录</a></div>
+    <div v-if="list.length>0" class="load"><a id="history">下载历史记录</a></div>
 </div>
 </body>
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -147,7 +147,6 @@
           list.unshift(new_list)
           this.list.unshift(new_list)
           localStorage.list = JSON.stringify(list)
-          window.location.href = window.location.href //处理下载记录不及时
         },
         del:function () {
           localStorage.clear()
@@ -179,18 +178,17 @@
       aLink.download = fileName;
       aLink.href = URL.createObjectURL(blob);
       aLink.dispatchEvent(evt);
-      $('.load').html(aLink)
-      $('a').html('下载历史记录')
     }
     function get_list() {
-      console.log(JSON.parse(localStorage.list))
       var val = '';
       $(JSON.parse(localStorage.list)).each(function (k,v) {
         val += v.t_title + '\n券后' + v.t_tickets + '\n券:' + v.t_ticket + '\n拍:' + v.t_id + '\n复制时间:' + v.date + ' '  + v.time + '\n\n\n\n' ;
       })
       return val;
     }
-    downloadFile('沫沫.text')
+    $('#history').click(function () {
+      downloadFile('沫沫.text')
+    })
   })
 </script>
 </html>
