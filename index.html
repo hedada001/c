@@ -59,6 +59,13 @@
         position: absolute;
         top:6%;right: 3%;font-size: 10px;color: red;cursor: pointer;
     }
+    .load{
+        position: absolute;
+        top:6%;left: 50%;
+    }
+    a{
+        text-decoration: none;font-size: 10px;color: red;cursor: pointer;
+    }
 </style>
 <body>
 <div id="app">
@@ -105,6 +112,7 @@
         </div>
     </div>
     <div v-if="list.length>0" class="del" v-on:click="del()">清除历史复制记录</div>
+    <div v-if="list.length>0" class="load"><a>下载复制记录</a></div>
 </div>
 </body>
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -153,7 +161,6 @@
           layer.msg('清除成功',{time:1000});
         },
         det:function (e) {
-          console.log(this.list[e])
           this.t_title = this.list[e].t_title
           this.t_tickets = this.list[e].t_tickets
           this.t_ticket = this.list[e].t_ticket
@@ -163,6 +170,33 @@
     })
     $('.div').css('height',$(window).height())
     $('.list').css('height',$(window).height()*.9)
+    function downloadFile(fileName, content){
+      var aLink = document.createElement('a');
+      var blob = new Blob([content]);
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent("click", false, false);
+      aLink.download = fileName;
+      aLink.href = URL.createObjectURL(blob);
+      aLink.dispatchEvent(evt);
+      $('.load').html(aLink)
+      $('a').html('下载历史记录')
+    }
+//    2343
+//    券后2435
+//    券:2345
+//    拍:2345245
+    function get_list() {
+      var val = '';
+//      t_title: '',
+//        t_tickets: '',
+//        t_ticket: '',
+//        t_id: '',
+      $(JSON.parse(localStorage.list)).each(function (k,v) {
+        val += v.t_title + '\n券后' + v.t_tickets + '\n券:' + v.t_ticket + '\n拍:' + v.t_id + '\n复制时间:' + v.date + ' '  + v.time + '\n\n\n\n' ;
+      })
+      return val;
+    }
+    downloadFile('',get_list())
   })
 </script>
 </html>
