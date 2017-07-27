@@ -147,6 +147,7 @@
           list.unshift(new_list)
           this.list.unshift(new_list)
           localStorage.list = JSON.stringify(list)
+          window.location.href = window.location.href //处理下载记录不及时
         },
         del:function () {
           localStorage.clear()
@@ -170,9 +171,9 @@
     })
     $('.div').css('height',$(window).height())
     $('.list').css('height',$(window).height()*.9)
-    function downloadFile(fileName, content){
+    function downloadFile(fileName){
       var aLink = document.createElement('a');
-      var blob = new Blob([content]);
+      var blob = new Blob([get_list()]);
       var evt = document.createEvent("HTMLEvents");
       evt.initEvent("click", false, false);
       aLink.download = fileName;
@@ -181,22 +182,15 @@
       $('.load').html(aLink)
       $('a').html('下载历史记录')
     }
-//    2343
-//    券后2435
-//    券:2345
-//    拍:2345245
     function get_list() {
+      console.log(JSON.parse(localStorage.list))
       var val = '';
-//      t_title: '',
-//        t_tickets: '',
-//        t_ticket: '',
-//        t_id: '',
       $(JSON.parse(localStorage.list)).each(function (k,v) {
         val += v.t_title + '\n券后' + v.t_tickets + '\n券:' + v.t_ticket + '\n拍:' + v.t_id + '\n复制时间:' + v.date + ' '  + v.time + '\n\n\n\n' ;
       })
       return val;
     }
-    downloadFile('',get_list())
+    downloadFile('沫沫')
   })
 </script>
 </html>
