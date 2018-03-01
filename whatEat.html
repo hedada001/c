@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>吃什么</title>
+</head>
+<body>
+<div style="text-align: center;height: 100%" id="content">
+    <div :style="'margin-top: '+height+ 'px'">
+        <div :style="'height: '+height+ 'px'">
+           <div :style="'height: '+height/2+ 'px'">
+               今 天
+               <span v-if="4<=time && time<10">早餐</span>
+               <span v-if="10<=time && time<14">午餐</span>
+               <span v-if="14<=time && time<16">下午茶</span>
+               <span v-if="16<=time && time<22">晚餐</span>
+               <span v-if="22<=time || time<4">夜宵</span>
+               吃 什 么 ?<br><br><br>
+               {{dish}}
+           </div>
+           <div :style="'height: '+height/2+ 'px'">
+               <button v-if="!start" @click="startClick()">开始</button>
+               <button v-else @click="
+defineClick()">确定</button>
+           </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="js/jquery.min.js"></script>
+<script>
+    var content = new Vue({
+        el: $('#content')[0],
+        data:{
+            index : '',
+            height: $(window).height()/3,
+            start: 0,
+            dish: '酸辣粉',
+            time: new Date().getHours(),
+            dishList: [
+                "面",
+                "粥",
+                "披萨",
+                "炒饭",
+                "红烧肉",
+                "冒菜",
+                "麻辣烫",
+                "饺子",
+                "寿司",
+                "煲仔饭",
+                "卤肉饭",
+                "炸鸡",
+                "酸辣粉"
+            ],
+            key: 0
+        },
+        methods: {
+            startClick:function () {
+                var that = this;
+                var length = this.dishList.length-1;
+                var dishList = this.dishList;
+                this.start = 1;
+                this.setInterval = setInterval(function () {
+                    that.dish = dishList[Math.round(Math.random()*length)]
+                },20)
+            },
+            defineClick:function () {
+                this.start = 0
+                this.setInterval=clearInterval(this.setInterval)
+            }
+        }
+    });
+    $(document).keydown(function(event){
+      　if(event.keyCode == 32){
+          if( content.key % 2 == 0) {
+              content.startClick()
+          }　else {
+              content.defineClick()
+          }
+          console.log(content.key)
+           content.key ++
+        }
+    });
+</script>
+</body>
+</html>
